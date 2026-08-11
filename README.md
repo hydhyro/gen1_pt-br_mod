@@ -1,4 +1,4 @@
-# Versão Brasileira
+# Versão Brasileira 99.99%
 
 Tradução do conteúdo dos jogos, Red, Blue e Yellow.
 A ripagem foi feita a partir da versão Vermelha, como Blue usa os mesmos textos não é afetada, porém Yellow apresenta algumas inconsistências no diálogo.
@@ -13,11 +13,14 @@ Qualquer erro ou inconsistência encontrada podem reportar que irei atualizar o 
 
 OBS: Mods adicionais ao recomp não são suportados, apesar de usar algumas labels iguais se serem traduzidos parcialmente, esse patch aqui é apenas para o conteúdo original do jogo.
 
-# Trechos sem traduzir por incompatibilidade do recomp (serão corridigos automaticamente atualizando o recom e não a tradução:
+# Trechos sem traduzir por incompatibilidade do recomp (serão corridigos automaticamente atualizando o recomp e não a tradução:
 - JOGADOR got a MAGIKARP! //No centro da Mt.Lua
+- SUPER NERD / Carinha dos Fósseis na versão Yellow fala um monte de bobagens.
+- ROCKET da ponte em Cerulean
 - Ao vencer a liga, o Professor Carvalho não fala o nome do seu inicial.
 - Game Corner Cassino foi todo refeito do zero e não usa textos normais da rom.
 - WITHDRAW/DEPOSIT no PC.
+- Cursor comendo a última letra (recomp adicionou o cursor onde não aparecia antes e causou isso).
 
 # Opções Extra do Menu do Mod
 - Desativar a traduções dos Golpes (reverte para Inglês);
