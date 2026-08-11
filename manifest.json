@@ -1,0 +1,16 @@
+{
+  "id": "gen1_pt-br",
+  "name": "Versão Brasileira",
+  "version": "1.0.0",
+  "api": 2,
+  "entry": "main.lua",
+  "profile": "content",
+  "game_version": ">=0.0.0-dev <1.0.0",
+  "category": "LANGUAGE",
+  "priority": 100,
+  "dependencies": [],
+  "optional_dependencies": [],
+  "conflicts": [],
+  "experimental": false,
+  "description": "Tradução dos jogos RED e BLUE para Português-BR. Hyd~ Traduções"
+}
