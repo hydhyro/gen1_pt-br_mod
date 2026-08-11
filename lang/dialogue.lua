@@ -7,7 +7,15 @@
 --You should take a quick nap
 --It will whisk you\nback --safron pidgey
 --enfermeira silphco9 - 3text
+--push(game, ("%s got a\nMAGIKARP!"):format(game.save.player.name), done)
+
+
+
+--YELLOW stuff:
+--["OAK: Look, {PLAYER}! Do\nyou see that ball\non the table?"] = "CARVALHO: Olhe,\n{PLAYER}!\fVê essa bola ali\nna mesa?",
 --["_OaksLabOakChooseMonText"] = "CARVALHO: Hã?\n{RIVAL}?\vPor que você já\vestá aqui?\fEu pedi que viesse mais tarde...\fBom, que seja!\nApenas espere um\vpouco aí mesmo.\fOlhe, {PLAYER}!\nVê aquela bola\vali na mesa?\fEla é chamada de\nPOKé BOLA. Ela\vcontém um POKéMON\vdentro dela.\fVocê pode ficar com ela!\vVá em frente,\vpegue-a!",
+--["_OaksLabOakIHaveARequestText"] = "CARVALHO: Ah,\n{RIVAL}, chegou\vem boa hora!\fPreciso pedir que\nvocês dois façam\vum favor para mim.",
+
 return {
 
   ["_SilphCo9FNurseText"] = "Não desista!",
@@ -22,12 +30,11 @@ return {
   ["_PalletTownOakComeWithMe"] = "Aqui, venha\ncomigo!",
   ["_PalletTownOakWhewText"] = "Ufa...",
   ["_PalletTownOakThatWasCloseText"] = "Essa foi por\npouco!\vPOKéMON selvagens\vvivem na grama\valta!",
-  --["OAK: Look, {PLAYER}! Do\nyou see that ball\non the table?"] = "CARVALHO: Olhe,\n{PLAYER}!\fVê essa bola ali\nna mesa?",
   ["_OaksLabChooseMonText"] = "CARVALHO: Hã?\n{RIVAL}?\vPor que você já\vestá aqui?\fEu pedi que viesse\nmais tarde...\fBom, que seja!\nApenas espere um\vpouco aí mesmo.\fOlhe, {PLAYER}!\nVê aquela bola\vali na mesa?\fEla é chamada de\nPOKé BOLA. Ela\vcontém um POKéMON\vdentro dela.\fVocê pode ficar\ncom ela!\vVá em frente,\vpegue-a!",
   ["_OaksLabThatsAPokeball"] = "Isso é uma\nPOKé BOLA!",
-  ["_OaksLabOak1GoAheadItsYours"] = "Vá em frente,\bé seu!",
-  ["_OaksLabRivalTakesText1"] = "{RIVAL}: Mas não\bmesmo!\v{PLAYER}, eu quero\vesse POKéMON!",
-  ["_OaksLabRivalTakesText2"] = "{RIVAL} pegou\bo POKéMON!",
+  ["_OaksLabOak1GoAheadItsYours"] = "Vá em frente,\vé seu!",
+  ["_OaksLabRivalTakesText1"] = "{RIVAL}: Mas não\vmesmo!\v{PLAYER}, eu quero\vesse POKéMON!",
+  ["_OaksLabRivalTakesText2"] = "{RIVAL} pegou\no POKéMON!",
   ["_OaksLabRivalTakesText3"] = "CARVALHO: {RIVAL}!\fO que você está\nfazendo?",
   ["_OaksLabRivalTakesText4"] = "{RIVAL}: Vovô, eu\nquero esse daqui!",
   ["_OaksLabRivalTakesText5"] = "CARVALHO: Mas\neu... Ah, tudo\vbem, então.\vPode ficar com\vesse POKéMON.\fEu já ia te dar\num mesmo...\f{PLAYER}, venha\naqui.",
@@ -53,7 +60,7 @@ return {
 ["_SilphCoJessieJamesText2"] = "Nosso CHEFE está\nem uma reunião!\fÉ melhor você não\nincodomodá-lo!",
 ["_SilphCoJessieJamesText3"] = "Como sempre...",
 ["_SilphCoJessieJamesText4"] = "EQUIPE ROCKET,\ndecolando na ve-\vlocidade da luz!\fDe novo...",
-["_ViridianCityOldManLosingMyTouchText"] = "Isso não funcionou\ncomo eu esperava.vAcho que estou\vperdendo o jeito.\fFiquei sem POKé\nBOLAs também.\fVou comprar mais\nna LOJA POKéMON.",
+["_ViridianCityOldManLosingMyTouchText"] = "Isso não funcionou\ncomo eu esperava.\vAcho que estou\vperdendo o jeito.\fFiquei sem POKé\nBOLAs também.\fVou comprar mais\nna LOJA POKéMON.",
 
 ["MelanieText1"] = "Eu cuido de POKéMON feridos.\fEu cuidei desse\nBULBASAUR até ele\vficar saudável.\fEle precisa de um\nbom treinador pa-\vra criá-lo agora.",
 ["MelanieText2"] = "Já sei! Você quer\nser o treinador\vdesse BULBASAUR?",
@@ -339,7 +346,7 @@ return {
   ["_CeruleanCityCooltrainerF1SlowbroWithdrawText"] = "SLOWBRO, RETIRADA!\nNão! Está errado!\fÉ tão difícil\ncontrolar alguns\vPOKéMON!\fA obediência dos\nPOKéMON depende\vda sua habilidade\vcomo treinador!",
   ["_CeruleanCityCooltrainerF2Text"] = "Eu quero uma\nBICICLETA verme-\vlha e reluzente!\fVou guardar ela\nem casa, assim\vnão vai sujar!",
   ["_CeruleanCityCooltrainerMText"] = "Você também é um\ntreinador? Cole-\vcionar, batalhar,\vé uma vida dura.",
-  ["_CeruleanCityGuardText"] = "Os moradores daqui\nforam roubados.\fÉ óbvio que a\nEQUIPE ROCKET\vestá por trás\vdesse hediondo\vato criminoso!\fAté mesmo nossa\nforça policial\vtêm problemas com\vesses ROCKETs!",
+  ["_CeruleanCityGuardText"] = "Os moradores daqui\nforam roubados.\fÉ óbvio que a\nEQUIPE ROCKET\vestá por trás\vdesse hediondo\vato criminoso!\fAté mesmo nossa\nforça policial\vtem problemas com\vesses ROCKETs!",
   ["_CeruleanCityGymSign"] = "GINÁSIO POKéMON\nDE CERULEAN\vLÍDER: MISTY\fA Sereia Durona!",
   ["_CeruleanCityRivalDefeatedText"] = "Ei!\nPega leve!\vVocê já venceu!",
   ["_CeruleanCityRivalIWentToBillsText"] = "{RIVAL}: Ei,\nadivinha só?\fFui até o BILL\ne ele me mostrou\valguns dos seus\vPOKéMON raros!\fIsso adicionou\nvárias páginas\vnovas na minha\vPOKéDEX!\fAfinal, BILL é\nmundialmente\vfamoso como o\vPOKéMANÍACO!\fFoi ele o criador\ndo Sistema de\vArmazenamento de\vPOKéMON no PC!\fJá que você está\nusando o sistema\vdele, deveria\vir agradecer!\fBem, eu tenho\nque ir nessa!\vFalou aí!",
@@ -351,7 +358,7 @@ return {
   ["_CeruleanCityRocketReceivedTM28Text"] = "{PLAYER} recuperou\na MT28!",
   ["_CeruleanCityRocketTM28NoRoomText"] = "Arrange espaço pra\nisso aqui!\fNão posso fugir\nantes de te\ventregar isso!",
   ["_CeruleanCityRocketText"] = "Ei! Cai fora!\nIsso aqui não é o\vseu quintal, não!\vHã? Eu?\fSou apenas um\ninocente cidadão\vde passagem! Não\vacredita em mim?",
-  ["_CeruleanCitySignText"] = "CIDADE DE CERULEAN\nUma Misteriosa,\vAura Azul a Rodeia",
+  ["_CeruleanCitySignText"] = "CIDADE DE CERULEAN\nUma Misteriosa\vAura Azul a Rodeia",
   ["_CeruleanCitySlowbroIgnoredOrdersText"] = "SLOWBRO ignorou\nas ordens...",
   ["_CeruleanCitySlowbroIsLoafingAroundText"] = "SLOWBRO está se\nespreguiçando...",
   ["_CeruleanCitySlowbroTookASnoozeText"] = "SLOWBRO tirou\numa soneca...",
@@ -1044,8 +1051,8 @@ return {
   ["_OaksLabLastMonText"] = "O último POKéMON\ndo PROF.CARVALHO!",
   ["_OaksLabMonEnergeticText"] = "Esse é um POKéMON\nbem animado!",
   ["_OaksLabOak1ComeSeeMeSometimesText"] = "CARVALHO: Venha\nme visitar de vez\vem quando.\fQuero ver como\nsua POKéDEX está\vprogredindo.",
-  ["_OaksLabOak1DeliverParcelText"] = "CARVALHO: Olá,\n{PLAYER}!\fComo vai meu velho\nPOKéMON?\fBem, ele parece\ngostar de você.\fVocê deve ser bem\ntalentoso como\vtreinador {PK}{MN}!\fO que? Você tem\nalgo para mim?\f{PLAYER} entregou\na ENCOMENDA.",
-  ["_OaksLabOak1HowIsYourPokedexComingText"] = "CARVALHO: Que bom\nte ver! Como anda\va sua POKéDEX?\vAqui, deixe-me\vdar uma olhada!",
+  ["_OaksLabOak1DeliverParcelText"] = "CARVALHO: Olá,\n{PLAYER}!\fComo vai meu velho\nPOKéMON?\fBem, ele parece\ngostar de você.\fVocê deve ser bem\ntalentoso como\vtreinador <PK><MN>!\fO quê? Você tem\nalgo para mim?\f{PLAYER} entregou\na ENCOMENDA.",
+  ["_OaksLabOak1HowIsYourPokedexComingText"] = "CARVALHO: Que bom\nte ver! Como anda\va sua POKéDEX?\vAqui, deixe-me\vdar uma olhada!",  
   ["_OaksLabOak1ParcelThanksText"] = "\fAh! Isso são as\nPOKé BOLAs que eu\vencomendei!\vMuito obrigado!",
   ["_OaksLabOak1PokemonAroundTheWorldText"] = "POKéMON do mundo\ntodo aguardam por\vvocê, {PLAYER}!",
   ["_OaksLabOak1RaiseYourYoungPokemonText"] = "CARVALHO: Você\ndeve fazer o seu\vPOKéMON batalhar\vpara fortalecê-lo!",
@@ -1074,6 +1081,8 @@ return {
   ["_OaksLabRivalMyPokemonLooksStrongerText"] = "{RIVAL}: Meu\nPOKéMON parece\vbem mais forte.",
   ["_OaksLabRivalReceivedMonText"] = "{RIVAL} recebeu\num {RAM:wNameBuffer}!",
   ["_OaksLabRivalSmellYouLaterText"] = "{RIVAL}: Certo!\nVou fazer meu\vPOKéMON lutar até\vficar mais forte!\f{PLAYER}! Vovô!\nFalou, valeu aí!",
+  ["_OaksLabRivalGrampsText"] = "{RIVAL}: Ei, Vovô!",
+  ["_OaksLabRivalMyPokemonHasGrownStrongerText"] = "{RIVAL}: Vovô,\nmeu POKéMON está\vbem mais forte!\vOlhe só!",
   ["_OaksLabRivalWhatAboutMeText"] = "{RIVAL}: Ei!\nVovô! E quanto\va mim?",
   ["_OaksLabRivalWhatDidYouCallMeForText"] = "{RIVAL}: Por que\nvocê me chamou?",
   ["_OaksLabScientistText"] = "Eu estudo POKéMON\ncomo ajudante do\vPROF.CARVALHO.",
@@ -1100,7 +1109,7 @@ return {
   ["_PalletTownGirlText"] = "Estou criando\nPOKéMON também!\fQuando ele\ncrescer e ficar\vforte, poderá\vme proteger!",
   ["_PalletTownOakHeyWaitDontGoOutText"] = "CARVALHO: Ei!\nNão vá por aí!",
   ["_PalletTownOakItsUnsafeText"] = "CARVALHO: É muito\nperigoso! POKéMON\vselvagens vivem\vna grama alta!\fVocê precisa ter\nseus próprios\vPOKéMON para se\vproteger.\vJá sei!\fAqui, venha\ncomigo!",
-  ["_PalletTownOaksLabSignText"] = "LABORATÓRIO {PK}{MN}\nDO PROF.CARVALHO",
+  ["_PalletTownOaksLabSignText"] = "LABORATÓRIO <PK><MN>\nDO PROF.CARVALHO",
   ["_PalletTownPlayersHouseSignText"] = "Casa do {PLAYER}",
   ["_PalletTownRivalsHouseSignText"] = "Casa do {RIVAL}",
   ["_PalletTownSignText"] = "CIDADE DE PALLET\nUma página em\vbranco aguardando\vnovas aventuras!",
@@ -1322,7 +1331,7 @@ return {
   ["_RedsHouse1FMomLookingGreatText"] = "MÃE: Ah, que bom!\nVocê e seu\vPOKéMON estão\vótimos!\vAgora se cuide!",
   ["_RedsHouse1FMomWakeUpText"] = "MÃE: Certo. Todos\nos meninos deixam\vo lar um dia.\vEu vi isso na TV.\fO vizinho do lado,\nPROF.CARVALHO,\vestá procurando\vpor você.",
   ["_RedsHouse1FMomYouShouldRestText"] = "MÃE: {PLAYER}!\nVocê deveria des-\vcansar um pouco.",
-  ["_RedsHouse1FTVStandByMeMovieText"] = "Está passando um\nfilme na tv...\fQuatro meninos\nandando nos\vtrilhos de trêm.\fMelhor eu\nir agora.",
+  ["_RedsHouse1FTVStandByMeMovieText"] = "Está passando um\nfilme na tv...\fQuatro meninos\nandando nos\vtrilhos de trem.\fMelhor eu\nir agora.",
   ["_RedsHouse1FTVWrongSideText"] = "Opa, lado errado.",
   ["_ReflectGainedArmorText"] = "{USER}\nganhou proteção!",
   ["_RegainedHealthText"] = "{USER}\nse curou!",
@@ -1885,9 +1894,11 @@ return {
   ["_Route3CooltrainerF3EndBattleText"] = "Só isso?",
   ["_Route3SignText"] = "ROTA 3\nMONTANHA DA LUA\vEM FRENTE",
   ["_Route3Text1"] = "Ai ai! Eu tropecei\nnum POKéMON ro-\vchoso, o GEODUDE!",
+  
   ["_Route3Youngster1AfterBattleText"] = "Aqui tem outros\ntipos de POKéMON\valém daqueles\vda floresta!",
-  ["_Route3Youngster1BattleText"] = "Eu vim pegar um\nPOKéMON cogumelo!",
-  ["_Route3Youngster1EndBattleText"] = "Ah! Meu\nquerido POKéMON\vcogumelo!",
+  ["_Route3Youngster1BattleText"] = "Ei! Eu te vi\nna FLORESTA\vDE VIRIDIAN!",
+  ["_Route3Youngster1EndBattleText"] = "Você\nme venceu mais\vuma vez!",
+  
   ["_Route3Youngster2AfterBattleText"] = "Você está guardan-\ndo seus POKéMON\vno PC? Cada POKé-\vCAIXA pode conter\vaté 20 POKéMON!",
   ["_Route3Youngster2BattleText"] = "Oi! Eu gosto de\ncalções! Eles são\vconfortáveis e\vfáceis de vestir!",
   ["_Route3Youngster2EndBattleText"] = "Eu não\nacredito nisso!",
@@ -2622,7 +2633,8 @@ return {
   ["_ViridianSchoolBlackboardText2"] = "Qual tópico você\ngostaria de ler?",
   ["_ViridianSchoolHouseBrunetteGirlText"] = "Nossa! Estou ten-\ntando memorizar\vminhas anotações.",
   ["_ViridianSchoolHouseCooltrainerFText"] = "Atenção!\fLeia a lousa com\nbastante atenção!",
-  ["_ViridianSchoolNotebookText1"] = "Lendo o\ncaderno!\fPrimeira página...\fPOKé BOLAs são\nusadas para\vcapturar POKéMON.\fVocê pode carregar\naté 6 POKéMON.\fPessoas que criam\ne fazem batalhas\vcom os POKéMON\vsão chamadas de\vTREINADORES {PK}{MN}.",
+  ["_ViridianSchoolHouseLittleGirlText"] = "Minha irmã disse\nque os POKéMON\nficam mais dóceis\nquando você os\vtrata com carinho.",
+  ["_ViridianSchoolNotebookText1"] = "Lendo o\ncaderno!\fPrimeira página...\fPOKé BOLAs são\nusadas para\vcapturar POKéMON.\fVocê pode carregar\naté 6 POKéMON.\fPessoas que criam\ne fazem batalhas\vcom os POKéMON\vsão chamadas de\vTREINADORES <PK><MN>.",
   ["_ViridianSchoolNotebookText2"] = "Segunda página...\fCapturar POKéMON\nsaudáveis é mais\vdifícil, então\venfraqueça-os!\fAlterações de\nESTADO, como\venvenenamento e\vqueimadura são\vbem úteis também.",
   ["_ViridianSchoolNotebookText3"] = "Terceira página...\fOs treinadores\nPOKéMON procuram\voutros para fazer\vbatalhas POKéMON.\fAs batalhas são\nconstantes nos\vGINÁSIOS POKéMON.",
   ["_ViridianSchoolNotebookText4"] = "Quarta página...\fO objetivo dos\ntreinadores é\vderrotar os 8\vLÍDERES dos\vGINÁSIOS POKéMON.\fPara conquistarem\no direito de\venfrentar...\fA ELITE DOS QUATRO\nda LIGA POKéMON!",
