@@ -3,13 +3,18 @@
 -- Keyed by the English source, which is also what draws if you leave
 -- an entry empty. Keep any %s / %d directives.
 
+
+--Font.draw(self.oldName .. " is", 8, 114) -- What? x is evolving
+
+
 return {
-  --["Enemy %s"] = "bUgOuL",
- -- ["Enemy %s "] = "%s inimigo ",
+  --["Enemy %s"] = "%",
+ -- ["Enemy %s"] = "%s inimigo ",
   ["POKEMON"] = "POKÉMON",
   ["lower case"] = "minúsculas",
   ["UPPER CASE"] = "MAIÚSCULAS", 
   ["ED"] = "OK",
+  ["HP"] = "PS",
   ["ATTACK"] = "ATAQUE",
   ["DEFENSE"] = "DEFESA", 
   ["SPEED"] = "VELOCID.", 
@@ -131,14 +136,14 @@ return {
   ["The hooked\n%s\nattacked!"] = "O %s\nfisgado\natacou!",
   ["Wild %s\nappeared!"] = "Um %s\nselvagem surgiu!",
   ["%s wants\nto fight!"] = "%s quer\nlutar!",
-  ["The GHOST\nappeared!"] = "O FANTASMA\napareceu!",
-  ["Go! %s!"] = "Vai,\n%s!",
+  ["The GHOST\nappeared!"] = "Um FANTASMA\napareceu!",
+  ["Go! %s!"] = "Vai, %s!",
   ["Do it! %s!"] = "Ataque,\n%s!",
   ["Get'm! %s!"] = "Pega ele,\n%s!",
   ["The enemy's weak!\nGet'm! %s!"] = "Ele está fraco!\nVai, %s!",
-  ["%s sent\nout %s!"] = "%s: Vai,\n%s!",
+  ["%s sent\nout %s!"] = "%s:\nVai, %s!",
   ["PA: You're out of\nSAFARI BALLs!\nGame over!"] = "RÁDIO: Você está\nsem BOLAS SAFARI!\nFim de jogo!",
-  ["%s is too\nscared to move!"] = "%s está com\nmedo de se mover!",
+  ["%s is too\nscared to move!"] = "%s está\nassustado demais\vpara se mover!",
   ["%s has no\nmoves left!"] = "%s não tem\nmais golpes!",
   ["The move is\ndisabled!"] = "Esse golpe está\ninabilitado!",
   ["No PP left for\nthis move!"] = "Sem PP sobrando\npara esse golpe!",
@@ -319,8 +324,6 @@ return {
   
   
   ["When you change a\nPOKéMON BOX, data\nwill be saved. OK?"] = "Ao mudar de CAIXA,\nos dados serão\vsalvos. Tudo bem?",
-  ["What?"] = "O quê?",
-  [" is"] = " está",
   ["BOX No."] = "CAIXA Nº",
   ["WITHDRAW <PK><MN>"] = "RETIRAR <PK><MN>",
   ["DEPOSIT <PK><MN>"] = "DEPOSITAR <PK><MN>",
@@ -349,7 +352,9 @@ return {
   
   
   ["Huh? %s\nstopped evolving!"] = "Hã? %s\nparou de evoluir!",
-  ["Congratulations!\nYour %s\nevolved into\n%s!"] = "Parabéns!\nSeu %s\nevoluiu para\n%s!",
+  ["Congratulations!\nYour %s\nevolved into\n%s!"] = "Parabéns!\nSeu %s\vevoluiu para\v%s!",
+  ["What?"] = "O quê?",
+  [" is"] = " está",
   ["evolving!"] = "evoluindo!",
   ["LEVEL/"] = "NÍVEL/",
   ["TYPE1/"] = "TIPO1/",
@@ -474,6 +479,7 @@ return {
   ["POKéMON YELLOW"] = "Versão AMARELA",
   ["2026 bois club games"] = "2026  Hyd~ Traduções",
   ["OT/%s"] = "TO/%s",
+  ["NAME"] = "NOME",
   ["NAME/%s"] = "NOME/%s",
   ["TIME/%3d:%02d"] = "TEMPO/%3d:%02d",
   ["MONEY/¥%d"] = "DINHEIRO/¥%d",
@@ -637,8 +643,8 @@ return {
   ["%s's PP\nwas restored!"] = "Os PP de %s\nforam restaurados!",
   ["%s's\nstatus returned\nto normal!"] = "O status de %s\nvoltou ao\nnormal!",
   ["%s\nis revitalized!"] = "%s foi\nrevitalizado!",
-  ["%s's %s\nrose!"] = "%s: %s\nsubiu!",
-  ["%s's PP\nincreased!"] = "O PP de %s\naumentou!",
+  ["%s's %s\nrose!"] = "%s ganhou\nmais %s!",
+  ["%s's PP\nincreased!"] = "%s\nganhou mais PP!",
   ["%s can't\nlearn that move!"] = "%s não pode\naprender o golpe!",
   ["It knows that\nmove already!"] = "Ele já sabe\nesse golpe!",
   ["Coin count:\n%d"] = "Fichas:\n%d",
