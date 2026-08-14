@@ -580,7 +580,7 @@ ListMenu.draw = function(self, ...)
     local offset = mod.exports.precos_linha and 8 or 0
 
     Font.draw = function(text, x, y, ...)
-        if x == 160 - 8 - Font.width(text) then
+        if y >= 16 and x == 160 - 8 - Font.width(text) then
             y = y + offset
         end
 
