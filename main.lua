@@ -111,6 +111,9 @@ mod.exports.trainer_card =
 
   -- ---- text ---------------------------------------------------------
   local counts = {}
+  counts.dialogue = each("pokedex_redblue", function(id, value)
+  mod.content.text:override(id, value)
+  end)
   counts.dialogue = each("dialogue", function(id, value)
     mod.content.text:override(id, value)
   end)
@@ -189,6 +192,60 @@ end
     mod.log:info("Português: %d strings traduzidas", total)
   end)
   
+ -------------------------------------------------------------------
+ --TABELA DE TIPOS
+ -------------------------------------------------------------------
+ -- Injected: localized type display names from generated lang/type_names.lua
+  -- Type names stay English in the type_chart registry so third-party
+  -- mods that key colors/UI off TypeChart.displayName keep resolving,
+  -- and are localized at draw time instead: every engine site renders
+  -- the type name as a standalone Font.draw string, which is substituted
+  -- below.
+  local okType, TypeChart = pcall(require, "src.battle.TypeChart")
+  local by_english = {}
+  counts.type_names = each("type_names", function(typeId, localized)
+    if okType and TypeChart and type(TypeChart.displayName) == "function" then
+      local canonical = TypeChart.displayName(typeId)
+      if type(canonical) == "string" and canonical ~= "" and canonical ~= localized then
+        by_english[canonical] = localized
+      end
+    end
+  end)
+  if next(by_english) then
+    local okFont, Font = pcall(require, "src.render.Font")
+    if okFont and type(Font) == "table" then
+      local function localize(text)
+        if type(text) ~= "string" then return text end
+        local localized = by_english[text]
+        return type(localized) == "string" and localized or text
+      end
+      if type(Font.split) == "function" then
+        local original_split = Font.split
+        Font.split = function(text)
+          return original_split(localize(text))
+        end
+      end
+      if type(Font.draw) == "function" then
+        local original_draw = Font.draw
+        Font.draw = function(text, x, y, ...)
+          return original_draw(localize(text), x, y, ...)
+        end
+      end
+    end
+  end
+
+  
+
+  -------------------------------------------------------------------------
+  -- Injected: versioned catalogs for Pokémon Yellow.
+  local okGame, GameVersion = pcall(require, "src.core.GameVersion")
+  local yellow_game_version = okGame and type(GameVersion) == "table"
+      and type(GameVersion.isYellow) == "function"
+      and GameVersion.isYellow()
+  if yellow_game_version then
+    each("dialogue_yellow", function(id, value) mod.content.text:override(id, value) end)
+    each("pokedex_yellow", function(id, value) mod.content.text:override(id, value) end)
+  end
   
   
  
@@ -557,95 +614,122 @@ mod.hooks:wrap("ui.party.submenu", function(next, game, items, mon, ctx)
 end)
 ------------------
 ------------------
-  local TitleState = require("src.ui.TitleState")
-  local oldDraw = TitleState.draw
+ local TitleState = require("src.ui.TitleState")
 
-  TitleState.draw = function(self)
-    oldDraw(self)
-
-    if self.version and not self.yellow then
-      local iw, ih = self.version:getDimensions()
-
-      -- cobre a versão antiga
-      love.graphics.setColor(1, 1, 1, 1)
-      love.graphics.rectangle("fill", 40, 64, 104, 8)
-
-      -- desenha a versão na nova ordem/posição
-      if self.blue then
-        love.graphics.draw(
-          self.version,
-          love.graphics.newQuad(88, 0, 72, 8, iw, ih),
-          48, 64
-        )
-      else
-        love.graphics.draw(
-          self.version,
-          love.graphics.newQuad(0, 0, 88, 8, iw, ih),
-          40, 64
-        )
-      end
-    end
-
-    love.graphics.setColor(1, 1, 1, 1)
-  end
-
----yellow
----------------
-  
-
-  
-local TitleState = require("src.ui.TitleState")
 local oldDraw = TitleState.draw
-local Font = require("src.render.Font")
 
 TitleState.draw = function(self)
   oldDraw(self)
 
-local function easeNoOvershoot(t)
-  if t <= 0 then return 0 end
-  if t >= 1 then return 1 end
+  -- A animação original já terminou de desenhar a ribbon.
+  -- Agora cobrimos a ribbon antiga e redesenhamos usando os novos tiles.
+  if self.version
+     and not self.yellowLayout
+     and self.phase ~= "drop"
+     and self.phase ~= "settle" then
 
-  local u = t - 1
-  local v = 1 + 2.70158 * u * u * u + 1.70158 * u * u
+    local iw, ih = self.version:getDimensions()
+    local rx = self.ribbonOffset or 0
 
-  return math.min(v, 1)
+    -- cobre a ribbon antiga
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.rectangle(
+      "fill",
+      40 + rx,
+      64,
+      104,
+      8
+    )
+
+    if self.blue then
+      -- BLUE:
+      -- antigo: 0,0,64,8  -> 56,64
+      -- novo:   88,0,72,8  -> 48,64
+      love.graphics.draw(
+        self.version,
+        love.graphics.newQuad(88, 0, 72, 8, iw, ih),
+        48 + rx,
+        64
+      )
+    else
+      -- RED:
+      -- antigo: dois pedaços
+      -- novo: um pedaço contínuo
+      love.graphics.draw(
+        self.version,
+        love.graphics.newQuad(0, 0, 88, 8, iw, ih),
+        40 + rx,
+        64
+      )
+    end
+  end
+
+  love.graphics.setColor(1, 1, 1, 1)
 end
 
+---yellow
+---------------
+local TitleState = require("src.ui.TitleState")
+
+local oldNew = TitleState.new
+
+TitleState.new = function(game, opts)
+  local self = oldNew(game, opts)
 
   if self.yellow then
+    local ok, logo = pcall(
+      love.graphics.newImage,
+      mod.assets:path("assets/title/yellow_logo.png")
+    )
 
-    -- contador da animação
-    self.__testFrame = (self.__testFrame or 0) + 1
-
-    local f = self.__testFrame
-
-    -- começa em Y=-15 e cai até Y=56
-    -- sem ultrapassar nem voltar
-local t = math.min(1, math.max(0, (f - 4) / 15))
-local y = math.floor(-15 + (56 + 15) * easeNoOvershoot(t))
-
-    local text1 = "VERSÃO"
-    local text2 = "AMARELA"
-
-    local x1 = 10
-    local x2 = 104
-
-    local w1 = Font.width(text1)
-    local w2 = Font.width(text2)
-
-    -- fundos brancos
-    love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.rectangle("fill", x1, y, w1, 8)
-    love.graphics.rectangle("fill", x2, y, w2, 8)
-
-    -- textos pretos
-    love.graphics.setColor(0, 0, 0, 1)
-    Font.draw(text1, x1, y)
-    Font.draw(text2, x2, y)
-
-    love.graphics.setColor(1, 1, 1, 1)
+    if ok and logo then
+      logo:setFilter("nearest", "nearest")
+      self.logo = logo
+    end
   end
+
+  if self.yellow then
+    local ok, bubble = pcall(
+      love.graphics.newImage,
+      mod.assets:path("assets/title/pika_bubble.png")
+    )
+
+    if ok and bubble then
+      bubble:setFilter("nearest", "nearest")
+      self.yellowBubble = bubble
+    end
+  end
+
+
+  return self
 end
+
+ 
+------------------
+
+    local Font = require("src.render.Font")
+    local oldDraw = Font.draw
+    local oldDrawBox = Font.drawBox
+
+    Font.draw = function(text, x, y, ...)
+        if text == Strings("MONEY") and x == 96 and y == 16 then
+            x = 88
+        elseif text == Strings("COIN") and x == 96 and y == 32 then
+            x = 88
+        end
+
+        return oldDraw(text, x, y, ...)
+    end
+
+    Font.drawBox = function(x, y, w, h, ...)
+        if x == 11 and y == 0 and w == 9 and h == 7 then
+            w = 10
+			x = 10
+        end
+
+        return oldDrawBox(x, y, w, h, ...)
+    end
+
 ------------------
 ------------------
 end
