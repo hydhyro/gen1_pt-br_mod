@@ -1,8 +1,8 @@
 {
   "id": "gen1_pt-br",
-  "name": "Versão Brasileira",
+  "name": "(PT-BR) Versão Brasileira",
   "github": "hydhyro/gen1_pt-br_mod",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "api": 2,
   "entry": "main.lua",
   "profile": "content",
@@ -13,5 +13,5 @@
   "optional_dependencies": [],
   "conflicts": [],
   "experimental": false,
-  "description": "Tradução dos jogos RED e BLUE para Português-BR. Hyd~ Traduções"
+  "description": "Tradução dos jogos RED, BLUE e YELLOW para PT-BR. Hyd~ Traduções"
 }
