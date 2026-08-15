@@ -544,7 +544,7 @@ return {
   ["We're making\npreparations.\vPlease wait."] = "Estamos fazendo\nos preparativos.\vAguarde um pouco.",
   ["Please apply here.\fBefore opening\nthe link, we have\vto save the game."] = "Inscreva-se aqui.\fAntes de abrir\na conexão, temos\vque salvar o jogo.",
   ["Please come\nagain!"] = "Volte\nsempre!",
-  ["I like shorts!\nThey're comfy and\neasy to wear!"] = "Gosto mesmo é de\nusar calcinhas!\vSão confortáveis e\vfáceis de vestir!\fE também um\nbotinão de couro!\vCombina demais!\fAgora é sério,\nvocê não deveria\vestar lendo isso!\fAlgo deu errado\nno gen1recomp e\vpuxou esse texto.\vAvise o tradutor\vpara por o texto\vcorreto aqui!!!!!!",
+  ["I like shorts!\nThey're comfy and\neasy to wear!"] = "Isso não deveria\nestar acontecendo!\fProvavelmente um\nerro do gen1recomp!",
   ["%s received\nthe %s!"] = "%s recebeu\na %s!",
   ["%s received\n%s!"] = "%s recebeu\n%s!",
   ["REPEL's effect\nwore off."] = "O efeito do\nREPELENTE acabou.",
