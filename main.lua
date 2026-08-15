@@ -731,5 +731,39 @@ end
     end
 
 ------------------
+--rename TEAM ROCKET
+------------------
+local oldBattleSay = BattleState.say
+local oldBattleSayNext = BattleState.sayNext
+
+local function replaceRocketName(self, text)
+  local index = self.partyIndex or 1
+
+  if self.oppClass == "OPP_ROCKET"
+     and index >= 42
+     and index <= 45
+     and type(text) == "string" then
+
+    local newName = "EQUIPE ROCKET"
+
+    -- Não substitui novamente o ROCKET que já faz parte do novo nome
+    if not text:find(newName, 1, true) then
+      text = text:gsub("ROCKET", newName)
+    end
+  end
+
+  return text
+end
+
+BattleState.say = function(self, text, ...)
+  text = replaceRocketName(self, text)
+  return oldBattleSay(self, text, ...)
+end
+
+BattleState.sayNext = function(self, text, ...)
+  text = replaceRocketName(self, text)
+  return oldBattleSayNext(self, text, ...)
+end
+
 ------------------
 end
