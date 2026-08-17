@@ -10,6 +10,7 @@
 return {
   --["Enemy %s"] = "%",
  -- ["Enemy %s"] = "%s inimigo ",
+  ["No."] = "N.º",
   ["POWER"] = "PODER",
   ["POKEMON"] = "POKÉMON",
   ["lower case"] = "minúsculas",
