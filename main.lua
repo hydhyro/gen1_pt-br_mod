@@ -120,8 +120,14 @@ mod.exports.trainer_card =
   counts.strings = each("strings", function(source, value)
     mod.content.strings:override(source, value)
   end)
+  counts.species = each("species_names", function(id, value)
+    mod.content.pokemon:patch(id, { name = value })
+  end)
+  
+ --- =========================================
+ --- OPTION, MOSTRAR OU NÂO INIMIGO + USED NA LINHA DEBAIXO
+ --- =========================================
   local mostrarInimigo = mod.options:get("mostrar_inimigo")
-
 if mostrarInimigo then
   mod.content.strings:override("Enemy %s", "%s inimigo ")
   mod.content.strings:override("%s\nused %s!", "%s\nusou %s!")
@@ -129,18 +135,10 @@ else
   mod.content.strings:override("Enemy %s", "%s")
   mod.content.strings:override("%s\nused %s!", "%s usou\n%s!")
 end
-
-  
-  
-  counts.species = each("species_names", function(id, value)
-    mod.content.pokemon:patch(id, { name = value })
-  end)
- ---------------
  
- 
-
--- Se for true, faz a alteração nos golpes
-
+--- =========================================
+-- CHANGE MOVE LANGUAGES (PT-BR = on / EN = off
+--- =========================================
 local idioma = mod.options:get("idioma_golpes")
 
 if idioma == "portuguese1" then
@@ -236,8 +234,9 @@ end
 
   
 
-  -------------------------------------------------------------------------
+--- =========================================
   -- Injected: versioned catalogs for Pokémon Yellow.
+--- =========================================
   local okGame, GameVersion = pcall(require, "src.core.GameVersion")
   local yellow_game_version = okGame and type(GameVersion) == "table"
       and type(GameVersion.isYellow) == "function"
@@ -252,9 +251,9 @@ end
   
   
   
--------------------------------------------------------------------------
+--- =========================================
   -- Traduções Literais
--------------------------------------------------------------------------  
+--- ========================================= 
   local literal_body = mod:read("lang/literal_handlers.lua")
   if literal_body then
     local chunk, err = loadstring(literal_body, "lang/literal_handlers.lua")
@@ -263,11 +262,8 @@ end
     if type(setup) ~= "function" then error("literal_handlers.lua must return a function") end
     setup(mod)
   end
--------------------------------------------------------------------------
-  -- Correção do Inventário, Preços e Quantidades na linha debaixo
 
-
---- ==========================================
+--- =========================================
 -- Cartão de Treinador
 -- ==========================================
 local oldTrainerCardDraw = TrainerCard.draw
@@ -580,7 +576,13 @@ ListMenu.draw = function(self, ...)
     local offset = mod.exports.precos_linha and 8 or 0
 
     Font.draw = function(text, x, y, ...)
-        if y >= 16 and x == 160 - 8 - Font.width(text) then
+        -- Quantidade / preço da lista
+        if offset ~= 0
+            and y >= 16
+            and y <= 120
+            and x == 160 - 8 - Font.width(text)
+            and x ~= 16 then
+
             y = y + offset
         end
 
@@ -621,8 +623,6 @@ local oldDraw = TitleState.draw
 TitleState.draw = function(self)
   oldDraw(self)
 
-  -- A animação original já terminou de desenhar a ribbon.
-  -- Agora cobrimos a ribbon antiga e redesenhamos usando os novos tiles.
   if self.version
      and not self.yellowLayout
      and self.phase ~= "drop"
@@ -631,7 +631,6 @@ TitleState.draw = function(self)
     local iw, ih = self.version:getDimensions()
     local rx = self.ribbonOffset or 0
 
-    -- cobre a ribbon antiga
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.rectangle(
       "fill",
@@ -731,7 +730,7 @@ end
     end
 
 ------------------
---rename TEAM ROCKET
+--rename ROCKET to TEAM ROCKET
 ------------------
 local oldBattleSay = BattleState.say
 local oldBattleSayNext = BattleState.sayNext
@@ -740,13 +739,12 @@ local function replaceRocketName(self, text)
   local index = self.partyIndex or 1
 
   if self.oppClass == "OPP_ROCKET"
-     and index >= 42
-     and index <= 45
+     and index >= 42 -- JESSIE & JAMES
+     and index <= 45 -- JESSIE & JAMES
      and type(text) == "string" then
 
-    local newName = "EQUIPE ROCKET"
+    local newName = "EQUIPE ROCKET" --or JESSIE&JAMES
 
-    -- Não substitui novamente o ROCKET que já faz parte do novo nome
     if not text:find(newName, 1, true) then
       text = text:gsub("ROCKET", newName)
     end
