@@ -1,15 +1,10 @@
--- Engine text
---
 -- Keyed by the English source, which is also what draws if you leave
 -- an entry empty. Keep any %s / %d directives.
-
-
 --Font.draw(self.oldName .. " is", 8, 114) -- What? x is evolving
-
-
 return {
   --["Enemy %s"] = "%",
  -- ["Enemy %s"] = "%s inimigo ",
+  ["HEAL"] = "CURAR",
   ["No."] = "N.º",
   ["POWER"] = "PODER",
   ["POKEMON"] = "POKÉMON",
@@ -95,10 +90,9 @@ return {
   ["VICTORY ROAD"] = "ROTA DA VITÓRIA",
   ["INDIGO PLATEAU"] = "PLANALTO INDIGO",
   ["POWER PLANT"] = "USINA ELÉTRICA",
-
+  ["POKéMON LEAGUE HQ"] = "QG DA LIGA POKéMON",
   ["BICYCLE"] = "BICICLETA",
-
-
+ 
   ["OAK: It's unsafe!\nWild POKéMON\nlive in tall grass!"] = "Não é seguro!\nPOKéMON selvagens\vvivem na grama\valta!",
   ["OAK: Here, come with\nme!"] = "Aqui, venha\ncomigo!",
   ["OAK: Whew..."] = "Ufa...",
@@ -110,7 +104,6 @@ return {
   ["SURFING Hi-Score"] = "Recordes de SURF",
   ["%d pts"] = "%d pts",
   ["Printed!\fSaved as\n%s\vin the save\nfolder."] = "Impresso!\fSalvo como\n%s\vna pasta de arquivos.",
-  ["Printer error!\n%s"] = "Erro de impressão!",
   ["A surfing poster."] = "Um poster de surf!",
   ["%s got a\nMAGIKARP!"] = "%s ganhou\num MAGIKARP!",
   ["%s got\n%s!"] = "%s ganhou\n%s!",
@@ -127,8 +120,7 @@ return {
   ["ITEMS"] = "ITENS",
 
   ["PARTY (DEPOSIT)"] = "EQUIPE (DEPOSITAR)",
-  ["DEPOSIT"] = "DEPOSITAR",
-  ["Oops! This Box is\nfull of POKéMON."] = "Opa! Essa Caixa\nestá cheia.",
+
 
   ["%s\nflew up high!"] = "%s\nvoou bem alto!",
   ["%s\ndug a hole!"] = "%s\ncavou um buraco!",
@@ -156,7 +148,7 @@ return {
   ["OLD MAN used\nPOKé BALL!"] = "VELHO usou\nPOKé BOLA!",
   ["All right!\n%s was\ncaught!"] = "É isso aí!\n%s foi\vcapturado!",
   ["GHOST: Get out...\nGet out..."] = "FANTASMA: Saia...\nSaia daqui...",
-  ["%s with-\ndrew %s!"] = "%s recolheu\n%s!",
+  ["%s with-\ndrew %s!"] = "%s:\nVolte, %s!",
   ["%s\nmust recharge!"] = "%s precisa\nrecarregar!",
   ["%s\nis fast asleep!"] = "%s\nestá dormindo!",
   ["%s\nis confused!"] = "%s\nestá confuso!",
@@ -171,7 +163,7 @@ return {
   ["%s's\nattack continues!"] = "%s\nsegue atacando!",
   ["%s\nis storing energy!"] = "%s\narmazena energia!",
   ["%s\nunleashed energy!"] = "%s\nliberou energia!",
-  ["%s's\nSUBSTITUTE broke!"] = "O SUBSTITUTO\nde %s quebrou!",
+  ["%s's\nSUBSTITUTE broke!"] = "O SUBSTITUTO\nde %s\vfoi destruído!",
   ["The SUBSTITUTE\ntook damage for\n%s!"] = "O SUBSTITUTO\ntomou o dano\npor %s!",
   ["%s's\nRAGE is building!"] = "%s\naumentou sua IRA!",
   ["%s\nfainted!"] = "%s\ndesmaiou!",
@@ -322,6 +314,7 @@ return {
   ["Printed BOX %d!\fSaved as\n%s\vin the save\nfolder."] = "Imprimiu CAIXA %d!\fSalva como\n%s\vna pasta de\varquivos.",
   ["Printed %s's\ndata!\fSaved as\n%s\vin the save\nfolder."] = "Imprimiu os dados\nde %s!\fSalvo como\n%s\vna pasta de\varquivos.",
   ["Printer error!\n%s"] = "Erro de impressão!\n%s",
+  ["There you go!\fSaved as\n%s\vin the save\nfolder."] = "Prontinho!\fSalvo como\n%s\vna sua pasta de\varquivos.",
   ["PRINT BOX"] = "IMPRIMIR CAIXA",
   
   
@@ -343,6 +336,8 @@ return {
   ["No.%0"] = "Nº.%0",
   ["HT %d′%02d″"] = "AL:%d′%02d″",
   ["WT %.1flb"] = "PE:%.1flb",
+  ["GR. %.1fm"] = "AL: %.1fm",
+  ["GEW. %.1fkg"] = "PE: %dkg",
   ["Data unknown."] = "Sem dados.",
   ["<Diploma>"] = "",
   ["Player"] = " Nome:",
@@ -503,8 +498,6 @@ return {
   ["Crammed full of\nPOKéMON books!"] = "Está repleta de\nlivros POKéMON!",
   ["There's a slew of\nPOKéMON stuff!"] = "Um monte de\ncoisas POKéMON!",
   ["An elevator!"] = "Um elevador!",
-  ["INDIGO PLATEAU"] = "PLANALTO ÍNDIGO",
-  ["POKéMON LEAGUE HQ"] = "QG DA LIGA POKéMON",
   ["You can't carry\nany more items!"] = "Você não pode car-\nregar mais itens!",
   ["%s found\n%s!"] = "%s encontrou\n%s!",
   ["%s found\n%d coins!"] = "%s encontrou\n%d fichas!",
@@ -601,6 +594,7 @@ return {
   ["BATTLE"] = "BATALHA",
   ["LEVELS:"] = "NÍVEIS:",
   ["A: continue  B: back"] = "A: continuar  B: voltar",
+  ["A: stats"] = "A: atributos",
   ["Checking the"] = "Verificando o",
   ["other game..."] = "outro jogo...",
   ["Waiting for the"] = "Aguardando o",
@@ -700,23 +694,21 @@ return {
   ["GBC FX"] = "",
   ["ZOOM"] = "",
   ["VOID FILL"] = "PREENCHER VAZIO",
-  --["TREES"] = "ÁRVORES",
-  --["WATER"] = "ÁGUA",
-  --["BLACK"] = "PRETO",
+  ["TREES"] = "ÁRVORES",
+  ["WATER"] = "ÁGUA",
+  ["BLACK"] = "PRETO",
   ["VIDEO MODE"] = "MODO DE VÍDEO",
   ["WINDOWED"] = "EM JANELA",
   ["BORDERLESS"] = "SEM BORDAS",
   ["TOUCH PAD"] = "",
-  ["MAX FPS"] = "FPS MÁXIMO",
   ["GAME SPEED"] = "VELOCIDADE JOGO",
   ["MODS"] = "",
   ["%d INSTALLED"] = "%d INSTALADOS",
   ["CONTROLS"] = "CONTROLES",
-  --["TOUCH CONTROLS"] = "CONTROLES DE TOQUE NA TELA",
-  --["RESET BINDINGS"] = "REDEFINIR BOTÕES", 
-
-  
-  --TOUCH
+  ["TOUCH CONTROLS"] = "CONTROLES DE TOQUE NA TELA",
+  ["RESET BINDINGS"] = "REDEFINIR BOTÕES", 
+  ["Online play runs\nvanilla for both\nplayers.\fTurn off %s\nand restart?"] = "Modo online só\nroda sem mods.\f%s\fDesligar todos\ne reiniciar?",
+  ["Online play runs\nvanilla for both\vplayers.\fTurn off %s\nand restart?"] = "Modo online só\nroda sem mods.\f%s\fDesligar todos\ne reiniciar?",
   ["Reset"] = "Resetar",
   ["Done"] = "Pronto",
   
@@ -726,8 +718,6 @@ return {
   ["ALL ITEMS"] = "TODOS OS ITENS",
   ["ALL"] = "TODOS",
   ["Everything you are carrying."] = "Tudo o que você está carregando.",
-  ["ITEMS"] = "COISAS",
-  ["ITEMS"] = "COISAS",
   ["Useful items for your journey."] = "Itens úteis para sua jornada.",
   ["MEDICINE"] = "MEDICAMENTOS",
   ["MED"] = "MED.",
@@ -735,8 +725,6 @@ return {
   ["POKé BALLS"] = "POKé BOLAS",
   ["BALLS"] = "BOLAS",
   ["Devices for catching wild POKéMON."] = "Dispositivos para capturar POKéMON selvagens.",
-  ["BATTLE"] = "BATALHA",
-  ["BATTLE"] = "BATALHA",
   ["Items that give an edge in battle."] = "Itens que dão vantagem em batalha.",
   ["TMs/HMs"] = "TMs/HMs",
   ["TMs"] = "TMs",
@@ -744,8 +732,6 @@ return {
   ["KEY ITEMS"] = "IMPORTANTES",
   ["KEY"] = "IMPORT.",
   ["Important items for your adventure."] = "Itens importantes para sua aventura.",
-  
-  
   ["Restores 20 HP to one POKéMON"] = "Restaura 20 HP de um POKéMON",
   ["Restores 50 HP to one POKéMON"] = "Restaura 50 HP de um POKéMON",
   ["Restores 200 HP to one POKéMON"] = "Restaura 200 HP de um POKéMON",
@@ -773,10 +759,6 @@ return {
   ["Keeps weak wild POKéMON away longer"] = "Mantém POKéMON selvagens fracos afastados por mais tempo",
   ["Keeps weak wild POKéMON away the longest"] = "Mantém POKéMON selvagens fracos afastados pelo maior tempo",
   ["A peculiar stone that evolves some POKéMON"] = "Uma pedra peculiar que evolui alguns POKéMON",
-  ["A peculiar stone that evolves some POKéMON"] = "Uma pedra peculiar que evolui alguns POKéMON",
-  ["A peculiar stone that evolves some POKéMON"] = "Uma pedra peculiar que evolui alguns POKéMON",
-  ["A peculiar stone that evolves some POKéMON"] = "Uma pedra peculiar que evolui alguns POKéMON",
-  ["A peculiar stone that evolves some POKéMON"] = "Uma pedra peculiar que evolui alguns POKéMON",
   ["A solid gold nugget that sells for a high price"] = "Uma pepita de ouro maciço que é vendida por um alto preço",
   ["A doll that can help you escape a wild battle"] = "Uma boneca que pode ajudar você a fugir de uma batalha selvagem",
   ["A folding bicycle that is faster than walking"] = "Uma bicicleta dobrável mais rápida que andar",
@@ -786,7 +768,7 @@ return {
   ["Use it by water to fish for POKéMON"] = "Use-a perto da água para pescar POKéMON",
   ["A good rod for fishing up POKéMON"] = "Uma boa vara para pescar POKéMON",
   ["The best rod for fishing up POKéMON"] = "A melhor vara para pescar POKéMON",
-  ["BAG"] = "ABA:",
+  ["BAG"] = "BOLSA",
   ["THIS POCKET"] = "ESTE BOLSO",
   ["IS EMPTY"] = "ESTÁ VAZIO",
   ["Teaches %s to a compatible POKéMON."] = "Ensina %s a um POKéMON compatível.",
@@ -801,7 +783,7 @@ return {
   ["A USE  B BACK"] = "A USAR  B VOLTAR",
   ["CHOOSE A NEW POSITION"] = "MOVER PRA ONDE?",
   ["L/R POCKET  A SELECT  B BACK"] = "E/D ABAS  A SELECINAR  B SAIR",
-  ["L/R POCKET  B BACK"] = "E/D ABAS  B SAIR",W
-  
+  ["L/R POCKET  B BACK"] = "E/D ABAS  B SAIR",
   
 }
+
