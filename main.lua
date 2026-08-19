@@ -614,6 +614,40 @@ mod.hooks:wrap("ui.party.submenu", function(next, game, items, mon, ctx)
 
     return result
 end)
+
+local OverworldState = require("src.world.OverworldController")
+local TextBox = require("src.render.TextBox")
+
+local oldNurseHeal = OverworldState.nurseHeal
+local oldTextBoxNew = TextBox.new
+
+OverworldState.nurseHeal = function(self, onDone, npc)
+    TextBox.new = function(game, text, onDone, opts)
+        if opts
+            and opts.choiceLabels
+            and opts.choiceBox == Theme.healCancelBox then
+
+            for i, label in ipairs(opts.choiceLabels) do
+                if label == "CANCEL" then
+                    opts.choiceLabels[i] = "SAIR"
+                end
+            end
+        end
+
+        return oldTextBoxNew(game, text, onDone, opts)
+    end
+
+    local ok, a, b, c, d, e = pcall(oldNurseHeal, self, onDone, npc)
+
+    TextBox.new = oldTextBoxNew
+
+    if not ok then
+        error(a)
+    end
+
+    return a, b, c, d, e
+end
+
 ------------------
 ------------------
  local TitleState = require("src.ui.TitleState")
@@ -761,6 +795,24 @@ end
 BattleState.sayNext = function(self, text, ...)
   text = replaceRocketName(self, text)
   return oldBattleSayNext(self, text, ...)
+end
+------------------
+local DexExtra = catalog("dex_extra")
+
+local DexEntryMenu = require("src.ui.DexEntryMenu")
+local oldDexEntryNew = DexEntryMenu.new
+
+DexEntryMenu.new = function(game, speciesOrOpts, onDone)
+    for species, extra in pairs(DexExtra) do
+        local pokemon = game.data.pokemon[species]
+
+        if pokemon and pokemon.dexEntry then
+            pokemon.dexEntry.heightM = extra.heightM
+            pokemon.dexEntry.weightKg = extra.weightKg
+        end
+    end
+
+    return oldDexEntryNew(game, speciesOrOpts, onDone)
 end
 
 ------------------
