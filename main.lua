@@ -636,25 +636,59 @@ local oldListMenuDraw = ListMenu.draw
 
 ListMenu.draw = function(self, ...)
     local oldDraw = Font.draw
+    local oldDrawCode = Font.drawCode
+    local oldDrawBox = Font.drawBox
+
     local offset = mod.exports.precos_linha and 8 or 0
 
     Font.draw = function(text, x, y, ...)
-        -- Quantidade / preço da lista
-        if offset ~= 0
-            and y >= 16
-            and y <= 120
-            and x == 160 - 8 - Font.width(text)
-            and x ~= 16 then
-
-            y = y + offset
+        
+        -- ITEM_NAME_X
+        -- Original: 48
+        -- Novo: 40
+        if x == 48 then
+            x = 40
         end
 
         return oldDraw(text, x, y, ...)
     end
 
+Font.drawCode = function(code, x, y, ...)
+    -- CURSORES DO ITEM MENU
+    if code == Theme.cursor and x == 40 then
+        x = 32
+
+    elseif code == Theme.cursorHollow and x == 40 then
+        x = 32
+    end
+
+    return oldDrawCode(code, x, y, ...)
+end
+
+
+    Font.drawBox = function(x, y, w, h, ...)
+        -- ITEM_BOX
+        -- Original: 4, 2, 16, 11
+        -- Novo: 2, 2, 20, 11
+        if x == 4
+            and y == 2
+            and w == 16
+            and h == 11 then
+
+            x = 3
+            y = 2
+            w = 17
+            h = 11
+        end
+
+        return oldDrawBox(x, y, w, h, ...)
+    end
+
     local ok, a, b, c, d, e = pcall(oldListMenuDraw, self, ...)
 
+    Font.drawBox = oldDrawBox
     Font.draw = oldDraw
+    Font.drawCode = oldDrawCode
 
     if not ok then
         error(a)
@@ -662,6 +696,7 @@ ListMenu.draw = function(self, ...)
 
     return a, b, c, d, e
 end
+
 
 -------------
 mod.hooks:wrap("ui.party.submenu", function(next, game, items, mon, ctx)

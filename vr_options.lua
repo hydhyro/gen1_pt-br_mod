@@ -30,15 +30,7 @@ function M.install(mod)
       },
     },
 
-    {
-      key = "precos_linha",
-      type = "choice",
-      default = true,
-      choices = {
-        { "LINHA DE BAIXO", true },
-        { "MESMA LINHA", false },
-      },
-    },
+
 
     {
       key = "trainer_card",
@@ -99,9 +91,7 @@ function M.install(mod)
 
   mod.content.screens:register(SCREEN_ID, {
     new = function(game)
-  if mod.exports.precos_linha == nil then
-    mod.exports.precos_linha = true
-  end
+
 
   if mod.exports.trainer_card == nil then
     mod.exports.trainer_card = true
@@ -115,8 +105,7 @@ function M.install(mod)
       mod.exports.mostrar_inimigo =
         getOption(game, "mostrar_inimigo")
 
-      mod.exports.precos_linha =
-        getOption(game, "precos_linha")
+
 
       mod.exports.trainer_card =
         getOption(game, "trainer_card")
@@ -134,11 +123,7 @@ function M.install(mod)
           value = mod.exports.mostrar_inimigo,
         },
 
-        {
-          label = "PREÇOS E QTDs.",
-          key = "precos_linha",
-          value = mod.exports.precos_linha,
-        },
+
 
         {
           label = "TRAINER CARD",
@@ -214,27 +199,12 @@ function M.install(mod)
 
             mod.exports.mostrar_inimigo = row.value
 
-          -- ==========================================
-          -- PREÇOS E QTDs.
-          -- ==========================================
-
-          elseif self.index == 3 then
-
-            row.value = not row.value
-
-            setOption(
-              game,
-              "precos_linha",
-              row.value
-            )
-
-            mod.exports.precos_linha = row.value
 
           -- ==========================================
           -- TRAINER CARD
           -- ==========================================
 
-          elseif self.index == 4 then
+          elseif self.index == 3 then
 
             row.value = not row.value
 
@@ -284,9 +254,7 @@ function M.install(mod)
 
             value = value and "SIM" or "NÃO"
 
-          elseif row.key == "precos_linha" then
 
-            value = value and "LINHA DE BAIXO" or "MESMA LINHA"
 
           elseif row.key == "trainer_card" then
 
