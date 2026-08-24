@@ -38,7 +38,11 @@ return {
   ["DARK"] = "NOTURNO",
   ["FAIRY"] = "FADA",
 
-
+  ["PLAYER %s"] = "NOME   %s",
+  ["Could not save."] = "Não pôde salvar.",
+  ["%s saved\nthe game."] = "%s salvou\no jogo.",
+  ["Would you like to\nsave the game?"] = "Gostaria de salvar\no jogo?",
+  ["Would you like to\nSAVE the game?"] = "Gostaria de SALVAR\no jogo?",
   ["What will"] = "O que",
   [" do?"] = " fará?",
   ["WHICH TECHNIQUE?"] = "Copiar qual golpe?";
