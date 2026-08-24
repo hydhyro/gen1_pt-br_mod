@@ -146,12 +146,190 @@ if idioma == "portuguese1" then
     counts.moves = each("move_names", function(id, value)
         mod.content.moves:patch(id, { name = value })
     end)
+--------------------------------------------------------------
+----------------------BATTLE UI
+--------------------------------------------------------------
+local oldDrawTextArea = BattleState.drawTextArea
 
-elseif idioma == "portuguese2" then
+BattleState.drawTextArea = function(self, ...)
+    local oldDraw = Font.draw
+    local oldDrawCode = Font.drawCode
+	local oldDrawBox = Font.drawBox
 
-    counts.moves = each("move_names2", function(id, value)
-        mod.content.moves:patch(id, { name = value })
+    Font.draw = function(text, x, y, ...)
+        if x == 48 and y >= 104 and y <= 128 then
+        x = 16	
+			
+        end
+
+        return oldDraw(text, x, y, ...)
+    end
+
+    Font.drawCode = function(code, x, y, ...)
+		--CURSORES DE GOLPES
+		if code == 0xED and x == 40 and y == 104 then
+            x = 08
+            y = 104
+		elseif code == 0xED and x == 40 and y == 112 then
+            x = 08
+            y = 112
+		elseif code == 0xED and x == 40 and y == 120 then
+            x = 08
+            y = 120
+		elseif code == 0xED and x == 40 and y == 128 then
+            x = 08
+            y = 128
+		elseif code == 0xEC and x == 40 and y == 104 then
+            x = 08
+            y = 104				
+		elseif code == 0xEC and x == 40 and y == 112 then
+            x = 08
+            y = 112
+		elseif code == 0xEC and x == 40 and y == 120 then
+            x = 08
+            y = 120
+		elseif code == 0xEC and x == 40 and y == 128 then
+            x = 08
+            y = 128		
+	--CURSORES DE MIMIC
+	
+			
+        end
+		
+		
+		
+		
+		
+
+        return oldDrawCode(code, x, y, ...)
+    end
+--
+	Font.drawBox = function(x, y, w, h, ...)
+		
+--MOVELIST BOX Font.drawBox(4, 12, 16, 6)			
+			if x == 4 and y == 12 and w == 16 and h == 6 then
+			x = 0
+			y = 12
+			w = 20
+			h = 6
+--MOVELIST TYPE BOX Font.drawBox(0, 8, 11, 5)			
+			--elseif x == 0 and y == 8 and w == 11 and h == 5 then
+			--x = 0
+			--y = 8
+			--w = 11
+			--h = 5			
+--MIMIC BOX Font.drawBox(0, 7, 16, 6)			
+			elseif x == 0 and y == 7 and w == 16 and h == 6 then
+			x = 0
+			y = 7
+			w = 20
+			h = 6
+--MOVE LEARN BOX Font.drawBox(0, 5, 20, 7)			
+			elseif x == 4 and y == 5 and w == 16 and h == 7 then
+			x = 0
+			y = 5
+			w = 20
+			h = 7
+    end
+
+	
+	
+
+    return oldDrawBox(x, y, w, h, ...)
+end
+
+
+    local ok, a, b, c, d, e = pcall(oldDrawTextArea, self, ...)
+
+	
+	Font.drawBox = oldDrawBox
+    Font.draw = oldDraw
+    Font.drawCode = oldDrawCode
+
+    if not ok then
+        error(a)
+    end
+
+    return a, b, c, d, e
+end
+----------------------------------------------
+----LEARN MOVE BOX
+----------------------------------------------
+local oldMoveLearnDraw = MoveLearnMenu.draw
+
+MoveLearnMenu.draw = function(self, ...)
+    local oldDraw = Font.draw
+    local oldDrawCode = Font.drawCode
+    local oldDrawBox = Font.drawBox
+
+    Font.draw = function(text, x, y, ...)
+        -- Nomes dos golpes
+        if x == 48 and y >= 48 and y <= 128 then
+            x = 16
+        -- CANCEL
+        elseif text == Strings("CANCEL") and x == 48 then
+            x = 16
+        end
+
+        return oldDraw(text, x, y, ...)
+    end
+
+    Font.drawCode = function(code, x, y, ...)
+        -- Cursor da lista
+        if code == 0xED and x == 40 then
+        x = 8
+		end
+
+        return oldDrawCode(code, x, y, ...)
+    end
+
+    Font.drawBox = function(x, y, w, h, ...)
+        -- Caixa da lista de golpes
+        if x == 4 and y == 5 and w == 16 and h == 7 then
+            x = 0
+            y = 5
+            w = 20
+            h = 7
+        end
+
+        return oldDrawBox(x, y, w, h, ...)
+    end
+
+    local ok, a, b, c, d, e = pcall(oldMoveLearnDraw, self, ...)
+
+    Font.draw = oldDraw
+    Font.drawCode = oldDrawCode
+    Font.drawBox = oldDrawBox
+
+    if not ok then
+        error(a)
+    end
+
+    return a, b, c, d, e
+end
+
+
+
+
+elseif idioma == "english" then
+
+    each("engmoves_dialogue", function(id, value)
+        mod.content.text:override(id, value)
     end)
+
+    each("engmoves_strings", function(source, value)
+        mod.content.strings:override(source, value)
+    end)
+
+
+
+
+
+
+--elseif idioma == "portuguese2" then
+--    counts.moves = each("move_names2", function(id, value)
+--        mod.content.moves:patch(id, { name = value })
+--    end)
 
 end
 
@@ -387,11 +565,7 @@ BattleState.drawTextArea = function(self, ...)
 
         elseif text == Strings("RUN", "battle") and x == 128 and y == 128 then
             x = 112
-            y = 128
-		--LISTA DE GOLPES	
-		elseif x == 48 and y >= 104 and y <= 128 then
-        x = 16	
-			
+            y = 128			
         end
 
         return oldDraw(text, x, y, ...)
@@ -418,42 +592,9 @@ BattleState.drawTextArea = function(self, ...)
             y = 128			
         elseif code == 0xED and x == 120 and y == 128 then
             x = 104
-            y = 128	
-	--CURSORES DE GOLPES
-			elseif code == 0xED and x == 40 and y == 104 then
-            x = 08
-            y = 104
-		elseif code == 0xED and x == 40 and y == 112 then
-            x = 08
-            y = 112
-		elseif code == 0xED and x == 40 and y == 120 then
-            x = 08
-            y = 120
-		elseif code == 0xED and x == 40 and y == 128 then
-            x = 08
-            y = 128
-		elseif code == 0xEC and x == 40 and y == 104 then
-            x = 08
-            y = 104				
-		elseif code == 0xEC and x == 40 and y == 112 then
-            x = 08
-            y = 112
-		elseif code == 0xEC and x == 40 and y == 120 then
-            x = 08
-            y = 120
-		elseif code == 0xEC and x == 40 and y == 128 then
-            x = 08
-            y = 128		
-	--CURSORES DE MIMIC
-	
-			
+            y = 128				
         end
 		
-		
-		
-		
-		
-
         return oldDrawCode(code, x, y, ...)
     end
 --FIGHT/PKMN/ITEM/RUN BOX
@@ -462,31 +603,7 @@ BattleState.drawTextArea = function(self, ...)
 			x = 5
 			y = 12
 			w = 15
-			h = 6
---MOVELIST BOX Font.drawBox(4, 12, 16, 6)			
-			elseif x == 4 and y == 12 and w == 16 and h == 6 then
-			x = 0
-			y = 12
-			w = 20
-			h = 6
---MOVELIST TYPE BOX Font.drawBox(0, 8, 11, 5)			
-			--elseif x == 0 and y == 8 and w == 11 and h == 5 then
-			--x = 0
-			--y = 8
-			--w = 11
-			--h = 5			
---MIMIC BOX Font.drawBox(0, 7, 16, 6)			
-			elseif x == 0 and y == 7 and w == 16 and h == 6 then
-			x = 0
-			y = 7
-			w = 20
-			h = 6
---MOVE LEARN BOX Font.drawBox(0, 5, 20, 7)			
-			elseif x == 4 and y == 5 and w == 16 and h == 7 then
-			x = 0
-			y = 5
-			w = 20
-			h = 7
+			h = 6		
     end
 
 	
@@ -510,61 +627,7 @@ end
     return a, b, c, d, e
 end
 
-----------------------------------------------
-----LEARN MOVE BOX
-----------------------------------------------
-local oldMoveLearnDraw = MoveLearnMenu.draw
 
-MoveLearnMenu.draw = function(self, ...)
-    local oldDraw = Font.draw
-    local oldDrawCode = Font.drawCode
-    local oldDrawBox = Font.drawBox
-
-    Font.draw = function(text, x, y, ...)
-        -- Nomes dos golpes
-        if x == 48 and y >= 48 and y <= 128 then
-            x = 16
-        -- CANCEL
-        elseif text == Strings("CANCEL") and x == 48 then
-            x = 16
-        end
-
-        return oldDraw(text, x, y, ...)
-    end
-
-    Font.drawCode = function(code, x, y, ...)
-        -- Cursor da lista
-        if code == 0xED and x == 40 then
-        x = 8
-		end
-
-        return oldDrawCode(code, x, y, ...)
-    end
-
-    Font.drawBox = function(x, y, w, h, ...)
-        -- Caixa da lista de golpes
-        if x == 4 and y == 5 and w == 16 and h == 7 then
-            x = 0
-            y = 5
-            w = 20
-            h = 7
-        end
-
-        return oldDrawBox(x, y, w, h, ...)
-    end
-
-    local ok, a, b, c, d, e = pcall(oldMoveLearnDraw, self, ...)
-
-    Font.draw = oldDraw
-    Font.drawCode = oldDrawCode
-    Font.drawBox = oldDrawBox
-
-    if not ok then
-        error(a)
-    end
-
-    return a, b, c, d, e
-end
 
 ----------------------------------------
 --INVENTÁRIO - QUEBRA DE LINHA
