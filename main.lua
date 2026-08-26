@@ -285,11 +285,11 @@ MoveLearnMenu.draw = function(self, ...)
 
     Font.drawBox = function(x, y, w, h, ...)
         -- Caixa da lista de golpes
-        if x == 4 and y == 5 and w == 16 and h == 7 then
+        if x == 4 and y == 7 and w == 16 and h == 6 then
             x = 0
-            y = 5
+            y = 7
             w = 20
-            h = 7
+            h = 6
         end
 
         return oldDrawBox(x, y, w, h, ...)
