@@ -547,76 +547,104 @@ end
 --------------------------------------------------------------
 ----------------------BATTLE UI
 --------------------------------------------------------------
+---------------------- BATTLE UI
+--------------------------------------------------------------
+---------------------- BATTLE UI
+--------------------------------------------------------------
 local oldDrawTextArea = BattleState.drawTextArea
 
 BattleState.drawTextArea = function(self, ...)
     local oldDraw = Font.draw
     local oldDrawCode = Font.drawCode
-	local oldDrawBox = Font.drawBox
+    local oldDrawBox = Font.drawBox
 
-    Font.draw = function(text, x, y, ...)
-        if text == Strings("FIGHT", "battle") and x == 80 and y == 112 then
-            x = 56
-            y = 112
+    -- Sequências reais dos textos
+    local fight = Font.encode(Strings("FIGHT", "battle"))
+    local item  = Font.encode(Strings("ITEM", "battle"))
+    local run   = Font.encode(Strings("RUN", "battle"))
 
-        elseif text == Strings("ITEM", "battle") and x == 80 and y == 128 then
-            x = 56
-            y = 128
-
-        elseif text == Strings("RUN", "battle") and x == 128 and y == 128 then
-            x = 112
-            y = 128			
-        end
-
-        return oldDraw(text, x, y, ...)
-    end
+    local active = nil
+    local pos = 0
 
     Font.drawCode = function(code, x, y, ...)
-	--PKMN
+        -- Só inicia o deslocamento quando encontrar o PRIMEIRO
+        -- glyph da sequência correta na posição original.
+        if not active then
+            if y == 112 and x == 80 and code == fight[1] then
+                active = fight
+                pos = 1
+            elseif y == 128 and x == 80 and code == item[1] then
+                active = item
+                pos = 1
+            elseif y == 128 and x == 128 and code == run[1] then
+                active = run
+                pos = 1
+            end
+        else
+            -- Confirma que ainda estamos dentro da mesma palavra.
+            if code == active[pos + 1] then
+                pos = pos + 1
+            else
+                -- A sequência terminou/interrompeu.
+                active = nil
+                pos = 0
+            end
+        end
+
+        -- Move SOMENTE os glyphs da palavra reconhecida.
+        if active then
+            if active == fight then
+                x = x - 24
+            elseif active == item then
+                x = x - 24
+            elseif active == run then
+                x = x - 16
+            end
+
+            -- terminou a palavra
+            if pos >= #active then
+                active = nil
+                pos = 0
+            end
+        end
+
+        -- PKMN
         if code == 0xE1 and x == 128 and y == 112 then
             x = 112
-            y = 112
 
         elseif code == 0xE2 and x == 136 and y == 112 then
             x = 120
-            y = 112
-	--CURSORES DE BATALHA
+
+        -- CURSORES DE BATALHA
         elseif code == 0xED and x == 72 and y == 112 then
             x = 48
-            y = 112
+
         elseif code == 0xED and x == 120 and y == 112 then
             x = 104
-            y = 112			
+
         elseif code == 0xED and x == 72 and y == 128 then
             x = 48
-            y = 128			
+
         elseif code == 0xED and x == 120 and y == 128 then
             x = 104
-            y = 128				
         end
-		
+
         return oldDrawCode(code, x, y, ...)
     end
---FIGHT/PKMN/ITEM/RUN BOX
-	Font.drawBox = function(x, y, w, h, ...)
-			if x == 8 and y == 12 and w == 12 and h == 6 then
-			x = 5
-			y = 12
-			w = 15
-			h = 6		
+
+    -- FIGHT/PKMN/ITEM/RUN BOX
+    Font.drawBox = function(x, y, w, h, ...)
+        if x == 8 and y == 12 and w == 12 and h == 6 then
+            x = 5
+            w = 15
+        end
+
+        return oldDrawBox(x, y, w, h, ...)
     end
-
-	
-	
-
-    return oldDrawBox(x, y, w, h, ...)
-end
-
 
     local ok, a, b, c, d, e = pcall(oldDrawTextArea, self, ...)
 
-	
-	Font.drawBox = oldDrawBox
+    Font.drawBox = oldDrawBox
     Font.draw = oldDraw
     Font.drawCode = oldDrawCode
 
