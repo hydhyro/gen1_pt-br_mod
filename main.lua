@@ -727,48 +727,45 @@ end
 
 
 -------------
--- -- Aumenta em 1 tile a largura da caixa do submenu da Party
--- e move seu conteúdo 1 tile para a esquerda
-local PartyMenu = require("src.ui.PartyMenu")
-local oldPartyMenuDraw = PartyMenu.draw
+mod.hooks:wrap("ui.party.submenu", function(next, game, items, mon, ctx)
+    local result = next(game, items, mon, ctx)
 
-PartyMenu.draw = function(self)
-    local oldDrawBox = Font.drawBox
-    local oldDraw = Font.draw
-    local oldDrawCode = Font.drawCode
-
-    -- Caixa: aumenta 1 tile para a direita
-    Font.drawBox = function(x, y, w, h)
-        if w == 20 - x and h == 18 - y then
-            w = w + 1
+    if type(result) == "table" then
+        for _, item in ipairs(result) do
+            if item.action == "switch" then
+                item.label = "MOVER"
+            end
         end
-
-        return oldDrawBox(x, y, w, h)
     end
 
-    -- Texto do submenu: move 1 tile para a esquerda
-    Font.draw = function(text, x, y, ...)
-        if self.submenu and x >= 104 and x <= 152 then
-            x = x - 8
+    return result
+end)
+
+local OverworldState = require("src.world.OverworldController")
+local TextBox = require("src.render.TextBox")
+
+local oldNurseHeal = OverworldState.nurseHeal
+local oldTextBoxNew = TextBox.new
+
+OverworldState.nurseHeal = function(self, onDone, npc)
+    TextBox.new = function(game, text, onDone, opts)
+        if opts
+            and opts.choiceLabels
+            and opts.choiceBox == Theme.healCancelBox then
+
+            for i, label in ipairs(opts.choiceLabels) do
+                if label == "CANCEL" then
+                    opts.choiceLabels[i] = "SAIR"
+                end
+            end
         end
 
-        return oldDraw(text, x, y, ...)
+        return oldTextBoxNew(game, text, onDone, opts)
     end
 
-    -- Cursor do submenu: move 1 tile para a esquerda
-    Font.drawCode = function(code, x, y, ...)
-        if self.submenu and x >= 96 and x <= 152 then
-            x = x - 8
-        end
+    local ok, a, b, c, d, e = pcall(oldNurseHeal, self, onDone, npc)
 
-        return oldDrawCode(code, x, y, ...)
-    end
-
-    local ok, a, b, c, d, e = pcall(oldPartyMenuDraw, self)
-
-    Font.drawBox = oldDrawBox
-    Font.draw = oldDraw
-    Font.drawCode = oldDrawCode
+    TextBox.new = oldTextBoxNew
 
     if not ok then
         error(a)
