@@ -727,45 +727,26 @@ end
 
 
 -------------
-mod.hooks:wrap("ui.party.submenu", function(next, game, items, mon, ctx)
-    local result = next(game, items, mon, ctx)
+-- Aumenta em 1 tile a largura da caixa do submenu da Party
+local PartyMenu = require("src.ui.PartyMenu")
+local oldPartyMenuDraw = PartyMenu.draw
 
-    if type(result) == "table" then
-        for _, item in ipairs(result) do
-            if item.action == "switch" then
-                item.label = "MOVER"
-            end
-        end
-    end
+PartyMenu.draw = function(self)
+    local oldDrawBox = Font.drawBox
 
-    return result
-end)
-
-local OverworldState = require("src.world.OverworldController")
-local TextBox = require("src.render.TextBox")
-
-local oldNurseHeal = OverworldState.nurseHeal
-local oldTextBoxNew = TextBox.new
-
-OverworldState.nurseHeal = function(self, onDone, npc)
-    TextBox.new = function(game, text, onDone, opts)
-        if opts
-            and opts.choiceLabels
-            and opts.choiceBox == Theme.healCancelBox then
-
-            for i, label in ipairs(opts.choiceLabels) do
-                if label == "CANCEL" then
-                    opts.choiceLabels[i] = "SAIR"
-                end
-            end
+    Font.drawBox = function(x, y, w, h)
+        -- Caixa do submenu:
+        -- original: Font.drawBox(lx - 1, top, 21 - lx, 18 - top)
+        if w == 20 - x and h == 18 - y then
+            w = w + 1
         end
 
-        return oldTextBoxNew(game, text, onDone, opts)
+        return oldDrawBox(x, y, w, h)
     end
 
-    local ok, a, b, c, d, e = pcall(oldNurseHeal, self, onDone, npc)
+    local ok, a, b, c, d, e = pcall(oldPartyMenuDraw, self)
 
-    TextBox.new = oldTextBoxNew
+    Font.drawBox = oldDrawBox
 
     if not ok then
         error(a)
