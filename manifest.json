@@ -1,8 +1,8 @@
 {
   "id": "gen1_pt-br",
-  "name": "(PT-BR) Versão Brasileira",
+  "name": "[PT-BR] Versão Brasileira (RBY)",
   "github": "hydhyro/gen1_pt-br_mod",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "api": 2,
   "entry": "main.lua",
   "profile": "content",
@@ -13,5 +13,5 @@
   "optional_dependencies": [],
   "conflicts": [],
   "experimental": false,
-  "description": "Tradução dos jogos RED, BLUE e YELLOW para PT-BR. Hyd~ Traduções"
+  "description": "Tradução de AMARELO, AZUL e VERMELHO para PT-BR. Hyd~ Traduções"
 }
