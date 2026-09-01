@@ -546,9 +546,7 @@ end
 
 --------------------------------------------------------------
 ----------------------BATTLE UI
---------------------------------------------------------------
 ---------------------- BATTLE UI
---------------------------------------------------------------
 ---------------------- BATTLE UI
 --------------------------------------------------------------
 local oldDrawTextArea = BattleState.drawTextArea
@@ -563,78 +561,88 @@ BattleState.drawTextArea = function(self, ...)
     local item  = Font.encode(Strings("ITEM", "battle"))
     local run   = Font.encode(Strings("RUN", "battle"))
 
-    local active = nil
-    local pos = 0
-
     Font.drawCode = function(code, x, y, ...)
-        -- Só inicia o deslocamento quando encontrar o PRIMEIRO
-        -- glyph da sequência correta na posição original.
-        if not active then
-            if y == 112 and x == 80 and code == fight[1] then
-                active = fight
-                pos = 1
-            elseif y == 128 and x == 80 and code == item[1] then
-                active = item
-                pos = 1
-            elseif y == 128 and x == 128 and code == run[1] then
-                active = run
-                pos = 1
-            end
-        else
-            -- Confirma que ainda estamos dentro da mesma palavra.
-            if code == active[pos + 1] then
-                pos = pos + 1
-            else
-                -- A sequência terminou/interrompeu.
-                active = nil
-                pos = 0
-            end
-        end
+        -- =====================================================
+        -- FIGHT / ITEM / RUN
+        -- Só pode funcionar no menu normal de batalha.
+        -- =====================================================
 
-        -- Move SOMENTE os glyphs da palavra reconhecida.
-        if active then
-            if active == fight then
-                x = x - 24
-            elseif active == item then
-                x = x - 24
-            elseif active == run then
-                x = x - 16
+        if self.phase == "menu" and not self.safari then
+
+            -- FIGHT
+            if y == 112 then
+                for i, glyph in ipairs(fight) do
+                    if code == glyph and x == 80 + (i - 1) * 8 then
+                        x = x - 24
+                        break
+                    end
+                end
             end
 
-            -- terminou a palavra
-            if pos >= #active then
-                active = nil
-                pos = 0
+            -- ITEM
+            if y == 128 then
+                for i, glyph in ipairs(item) do
+                    if code == glyph and x == 80 + (i - 1) * 8 then
+                        x = x - 24
+                        break
+                    end
+                end
             end
-        end
 
-        -- PKMN
-        if code == 0xE1 and x == 128 and y == 112 then
-            x = 112
+            -- RUN
+            if y == 128 then
+                for i, glyph in ipairs(run) do
+                    if code == glyph and x == 128 + (i - 1) * 8 then
+                        x = x - 16
+                        break
+                    end
+                end
+            end
 
-        elseif code == 0xE2 and x == 136 and y == 112 then
-            x = 120
+            -- =================================================
+            -- PKMN
+            -- =================================================
 
-        -- CURSORES DE BATALHA
-        elseif code == 0xED and x == 72 and y == 112 then
-            x = 48
+            if code == 0xE1 and x == 128 and y == 112 then
+                x = 112
 
-        elseif code == 0xED and x == 120 and y == 112 then
-            x = 104
+            elseif code == 0xE2 and x == 136 and y == 112 then
+                x = 120
+            end
 
-        elseif code == 0xED and x == 72 and y == 128 then
-            x = 48
+            -- =================================================
+            -- CURSORES DE BATALHA
+            -- =================================================
 
-        elseif code == 0xED and x == 120 and y == 128 then
-            x = 104
+            if code == 0xED and x == 72 and y == 112 then
+                x = 48
+
+            elseif code == 0xED and x == 120 and y == 112 then
+                x = 104
+
+            elseif code == 0xED and x == 72 and y == 128 then
+                x = 48
+
+            elseif code == 0xED and x == 120 and y == 128 then
+                x = 104
+            end
         end
 
         return oldDrawCode(code, x, y, ...)
     end
 
-    -- FIGHT/PKMN/ITEM/RUN BOX
+    -- =========================================================
+    -- FIGHT / PKMN / ITEM / RUN BOX
+    -- =========================================================
+
     Font.drawBox = function(x, y, w, h, ...)
-        if x == 8 and y == 12 and w == 12 and h == 6 then
+        if self.phase == "menu"
+            and not self.safari
+            and x == 8
+            and y == 12
+            and w == 12
+            and h == 6 then
+
             x = 5
             w = 15
         end
@@ -644,6 +652,7 @@ BattleState.drawTextArea = function(self, ...)
 
     local ok, a, b, c, d, e = pcall(oldDrawTextArea, self, ...)
 
+    -- Restaura as funções originais
     Font.drawBox = oldDrawBox
     Font.draw = oldDraw
     Font.drawCode = oldDrawCode
@@ -654,7 +663,6 @@ BattleState.drawTextArea = function(self, ...)
 
     return a, b, c, d, e
 end
-
 
 
 ----------------------------------------
