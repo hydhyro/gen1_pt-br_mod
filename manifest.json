@@ -2,7 +2,7 @@
   "id": "gen1_pt-br_mod",
   "name": "[PT-BR] Versão Brasileira (RBY)",
   "github": "hydhyro/gen1_pt-br_mod",
-  "version": "0.1.11",
+  "version": "0.1.11.1",
   "api": 2,
   "entry": "main.lua",
   "profile": "content",
