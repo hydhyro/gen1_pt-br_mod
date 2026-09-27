@@ -1,4 +1,4 @@
-# Versão Brasileira 99.99%
+# Versão Brasileira
 
 Tradução do conteúdo dos jogos, Red, Blue e Yellow.
 A ripagem foi feita a partir da versão Vermelha, como Blue usa os mesmos textos não é afetada, porém Yellow apresenta algumas inconsistências no diálogo.
