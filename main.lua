@@ -492,7 +492,7 @@ TrainerCard.draw = function(self, ...)
         elseif x == 56 and y == 72 then
             oldDraw(
                 Strings("BADGES"),
-                40, 73, ...
+                40, 72, ...
             )
 
         else
@@ -509,23 +509,14 @@ TrainerCard.draw = function(self, ...)
 
             if x == 48 and y == 72 then
                 args[1] = 32
-                args[2] = 72
+                args[2] = 70
 
             elseif x == 104 and y == 72 then
                 args[1] = 112
-                args[2] = 72
+                args[2] = 70
             end
 
-        elseif image == self.faces.img or image == self.badges.img then
-            local x = args[2]
-            local y = args[3]
-
-            if x and y then
-                local row = math.floor((y - 100) / 24)
-
-                args[2] = x + 4
-                args[3] = 97 + row * 22
-            end
+        
         end
 
         return oldGfxDraw(image, unpack(args))
@@ -784,92 +775,92 @@ end
 
 ------------------
 ------------------
- local TitleState = require("src.ui.TitleState")
+ -- local TitleState = require("src.ui.TitleState")
 
-local oldDraw = TitleState.draw
+-- local oldDraw = TitleState.draw
 
-TitleState.draw = function(self)
-  oldDraw(self)
+-- TitleState.draw = function(self)
+  -- oldDraw(self)
 
-  if self.version
-     and not self.yellowLayout
-     and self.phase ~= "drop"
-     and self.phase ~= "settle" then
+  -- if self.version
+     -- and not self.yellowLayout
+     -- and self.phase ~= "drop"
+     -- and self.phase ~= "settle" then
 
-    local iw, ih = self.version:getDimensions()
-    local rx = self.ribbonOffset or 0
+    -- local iw, ih = self.version:getDimensions()
+    -- local rx = self.ribbonOffset or 0
 
-    love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.rectangle(
-      "fill",
-      40 + rx,
-      64,
-      104,
-      8
-    )
+    -- love.graphics.setColor(1, 1, 1, 1)
+    -- love.graphics.rectangle(
+      -- "fill",
+      -- 40 + rx,
+      -- 64,
+      -- 104,
+      -- 8
+    -- )
 
-    if self.blue then
-      -- BLUE:
-      -- antigo: 0,0,64,8  -> 56,64
-      -- novo:   88,0,72,8  -> 48,64
-      love.graphics.draw(
-        self.version,
-        love.graphics.newQuad(88, 0, 72, 8, iw, ih),
-        48 + rx,
-        64
-      )
-    else
-      -- RED:
-      -- antigo: dois pedaços
-      -- novo: um pedaço contínuo
-      love.graphics.draw(
-        self.version,
-        love.graphics.newQuad(0, 0, 88, 8, iw, ih),
-        40 + rx,
-        64
-      )
-    end
-  end
+    -- if self.blue then
+     -- BLUE:
+     -- antigo: 0,0,64,8  -> 56,64
+     -- novo:   88,0,72,8  -> 48,64
+      -- love.graphics.draw(
+        -- self.version,
+        -- love.graphics.newQuad(88, 0, 72, 8, iw, ih),
+        -- 48 + rx,
+        -- 64
+      -- )
+    -- else
+     -- RED:
+     -- antigo: dois pedaços
+     -- novo: um pedaço contínuo
+      -- love.graphics.draw(
+        -- self.version,
+        -- love.graphics.newQuad(0, 0, 88, 8, iw, ih),
+        -- 40 + rx,
+        -- 64
+      -- )
+    -- end
+  -- end
 
-  love.graphics.setColor(1, 1, 1, 1)
-end
+  -- love.graphics.setColor(1, 1, 1, 1)
+-- end
 
----yellow
----------------
-local TitleState = require("src.ui.TitleState")
+--yellow
+-------------
+-- local TitleState = require("src.ui.TitleState")
 
-local oldNew = TitleState.new
+-- local oldNew = TitleState.new
 
-TitleState.new = function(game, opts)
-  local self = oldNew(game, opts)
+-- TitleState.new = function(game, opts)
+  -- local self = oldNew(game, opts)
 
-  if self.yellow then
-    local ok, logo = pcall(
-      love.graphics.newImage,
-      mod.assets:path("assets/title/yellow_logo.png")
-    )
+  -- if self.yellow then
+    -- local ok, logo = pcall(
+      -- love.graphics.newImage,
+      -- mod.assets:path("assets/title/yellow_logo.png")
+    -- )
 
-    if ok and logo then
-      logo:setFilter("nearest", "nearest")
-      self.logo = logo
-    end
-  end
+    -- if ok and logo then
+      -- logo:setFilter("nearest", "nearest")
+      -- self.logo = logo
+    -- end
+--  end
 
-  if self.yellow then
-    local ok, bubble = pcall(
-      love.graphics.newImage,
-      mod.assets:path("assets/title/pika_bubble.png")
-    )
+--  if self.yellow then
+--    local ok, bubble = pcall(
+--      love.graphics.newImage,
+--      mod.assets:path("assets/title/pika_bubble.png")
+--    )
 
-    if ok and bubble then
-      bubble:setFilter("nearest", "nearest")
-      self.yellowBubble = bubble
-    end
-  end
+--   if ok and bubble then
+--      bubble:setFilter("nearest", "nearest")
+--      self.yellowBubble = bubble
+--    end
+--  end
 
 
-  return self
-end
+--  return self
+--end
 
  
 ------------------
